@@ -13,10 +13,14 @@ const all = async (req, res) => {
 const create = async (req, res) => {
 	//console.log(req.body);
 	//debo validarlo-> antes de que llegue aca.
-	const { title, price, codition, description } = req.body; //obtengo el post del cliente
-	let product = new Product(req.body);
-	await product.save();
-	res.status(201).json({ message: 'created' });
+	try {
+		const { title, price, codition, description } = req.body; //obtengo el post del cliente
+		let product = new Product(req.body);
+		await product.save();
+		res.status(201).json({ message: 'created' });
+	} catch (e) {
+		res.sendStatus(500);
+	}
 };
 
 const approvePurchaseProducts = async (products) => {
