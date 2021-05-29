@@ -15,8 +15,11 @@ const auth = require('./routes/auth');
 const purchase = require('./routes/purchase');
 const contact = require('./routes/contact');
 
+const adminProducts = require('./routes/admin/products');
+
 //middlewares
 const { securedUser } = require('./middlewares/actions/auth');
+const { approvePurchaseProducts } = require('./controllers/products');
 
 const app = express();
 
@@ -31,18 +34,20 @@ app.use('/api/auth', auth);
 app.use('/api/purchase', securedUser, purchase);
 app.use('/contact', contact);
 
+app.use('/api/admin/products', securedAdmin, adminProducts);
+
 console.log('server ok');
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  //next(createError(404));
-  res.sendStatus(404);
+	//next(createError(404));
+	res.sendStatus(404);
 });
 
 // error handler
 app.use(function (err, req, res, next) {
-  console.error(err); //queda acentado en el server mediante el logg
-  res.sendStatus(500);
+	console.error(err); //queda acentado en el server mediante el logg
+	res.sendStatus(500);
 });
 
 module.exports = app;
