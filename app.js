@@ -18,8 +18,7 @@ const contact = require('./routes/contact');
 const adminProducts = require('./routes/admin/products');
 
 //middlewares
-const { securedUser } = require('./middlewares/actions/auth');
-const { approvePurchaseProducts } = require('./controllers/products');
+const { securedUser, securedAdmin } = require('./middlewares/actions/auth');
 
 const app = express();
 
@@ -34,6 +33,7 @@ app.use('/api/auth', auth);
 app.use('/api/purchase', securedUser, purchase);
 app.use('/contact', contact);
 
+//admin route
 app.use('/api/admin/products', securedAdmin, adminProducts);
 
 console.log('server ok');
