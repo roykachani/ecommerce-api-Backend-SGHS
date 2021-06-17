@@ -1,4 +1,5 @@
 const Product = require('./../models/Product');
+const { createProduct } = require('../services/products');
 
 const all = async (req, res) => {
 	try {
@@ -11,15 +12,15 @@ const all = async (req, res) => {
 };
 
 const create = async (req, res) => {
-	//console.log(req.body);
-	//debo validarlo-> antes de que llegue aca.
 	try {
-		const { title, price, codition, description } = req.body; //obtengo el post del cliente
-		let product = new Product(req.body);
+		const newProduct = createProduct(req.body, req.files);
+		const product = new Product(newProduct);
 		await product.save();
-		res.status(201).json({ message: 'created' });
+
+		res.status(201).json({ message: 'Producto creado' });
 	} catch (e) {
-		res.sendStatus(500);
+		console.log(e);
+		res.sendStatus(500).json({ message: 'no se puede crear el producto' });
 	}
 };
 

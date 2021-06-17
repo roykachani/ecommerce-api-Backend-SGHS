@@ -19,7 +19,7 @@ const ProdutSchema = Schema(
 			type: String,
 			require: true,
 		},
-		photo: {
+		photos: {
 			type: Array,
 			default: [],
 		},

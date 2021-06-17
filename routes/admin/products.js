@@ -1,9 +1,12 @@
 const { Router } = require('express');
 const router = Router();
+const multer = require('multer');
+const config = { dest: './temp' };
+const upload = multer(config);
 
 const { create } = require('./../../controllers/products');
-const { validateCreate } = require('./../../middlewares/actions/product');
+//const { validateCreate } = require('./../../middlewares/actions/product');
 
-router.post('/', validateCreate, create);
+router.post('/', upload.array('photos'), create);
 
 module.exports = router;
