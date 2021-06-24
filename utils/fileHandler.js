@@ -2,7 +2,14 @@ const fs = require('fs');
 const uuid = require('node-uuid');
 const allowImageExtension = ['jpeg', 'png'];
 
-const saveFiles = ({ path, size, mimetype }, allowImageExtension) => {
+const cloudinary = require('cloudinary');
+cloudinary.config({
+	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+	api_key: process.env.CLOUDINARY_API_KEY,
+	api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const saveFiles = async ({ path, size, mimetype }, allowImageExtension) => {
 	try {
 		const [type, extension] = mimetype.split('/');
 		if (!allowImageExtension.includes(extension))
@@ -12,10 +19,13 @@ const saveFiles = ({ path, size, mimetype }, allowImageExtension) => {
 			const uid = uuid();
 			const fileName = `${uid}.${extension}`;
 			const fileNameOut = `./images/${fileName}`;
-
 			fs.createReadStream(path).pipe(fs.createWriteStream(fileNameOut));
+			const result = await cloudinary.v2.uploader.upload(path);
+			console.log(result);
+
 			fs.unlinkSync(path);
-			return fileName;
+			fs.unlinkSync(fileNameOut);
+			return fileName, result.secure_url;
 		}
 		throw new Error('superaste el limite peso maximo de archivo');
 	} catch (e) {

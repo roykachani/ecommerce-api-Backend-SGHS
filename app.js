@@ -14,7 +14,7 @@ const products = require('./routes/products');
 const auth = require('./routes/auth');
 const purchase = require('./routes/purchase');
 const contact = require('./routes/contact');
-
+//definicion admin rutas
 const adminProducts = require('./routes/admin/products');
 
 //middlewares
@@ -33,7 +33,7 @@ app.use('/api/auth', auth);
 app.use('/api/purchase', securedUser, purchase);
 app.use('/contact', contact);
 
-//admin route
+//use admin route
 app.use('/api/admin/products', securedAdmin, adminProducts);
 
 console.log('server ok');

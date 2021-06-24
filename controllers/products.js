@@ -13,7 +13,7 @@ const all = async (req, res) => {
 
 const create = async (req, res) => {
 	try {
-		const newProduct = createProduct(req.body, req.files);
+		const newProduct = await createProduct(req.body, req.files);
 		const product = new Product(newProduct);
 		await product.save();
 
