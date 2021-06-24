@@ -24,27 +24,28 @@ const create = async (req, res) => {
 	}
 };
 
+const updateProduct = async (req, res) => {};
+
 const approvePurchaseProducts = async (products) => {
 	try {
 		const checkProducts = products.map((product) =>
-			Product.find({
+			Product.findOne({
 				_id: product.id,
 				price: product.price,
 				avaible_quantity: { $gte: product.quantity },
 				enable: true,
 			})
 		);
-		// const filtCheked = checkProducts.filter((product) =>
-		//   null ? 'el producto no se encuentra' : product
-		// );
-		// console.log(filtCheked);
-		const [approvePurchaseResult] = await Promise.all(checkProducts);
-		if (approvePurchaseResult.length) {
-			// console.log(approvePurchaseResult);
+
+		const approvePurchaseResult = await Promise.all(checkProducts);
+		if (
+			approvePurchaseResult.length === products.length &&
+			!approvePurchaseResult.includes(null)
+		)
 			return true;
-		}
-		return false;
-		// throw new Error('los datos no coinciden');
+
+		//return false;*/
+		throw new Error('los datos de productos no son validos');
 	} catch (e) {
 		console.error(e);
 	}
@@ -60,4 +61,4 @@ const find = async (req, res) => {
 		res.sendStatus(500);
 	}
 };
-module.exports = { all, find, create, approvePurchaseProducts };
+module.exports = { all, find, create, approvePurchaseProducts, updateProduct };

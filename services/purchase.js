@@ -9,22 +9,25 @@ const { calculateTotal } = require('./../utils/calculateTotal');
 const uuid = require('node-uuid');
 
 const newPurchase = async (req) => {
+	const session = await User.startSession();
+
 	try {
 		const id = req.id;
 		const { email, name, lastname } = await User.findById(id);
 		const idOperation = uuid();
 		const { products } = req.body;
+		session.startTransaction();
 		const purchase = new Purchase(products);
 		purchase.users = id;
 		purchase.idOperation = idOperation;
 		purchase.products = products;
 		const validPurchase = await approvePurchaseProducts(products);
 		if (!validPurchase) return 'INVALID_PURCHASE';
-		const total = calculateTotal(products);
-		console.log(total);
-		purchase.total = total;
 		await updateStock(products);
+		const total = calculateTotal(products);
+		purchase.total = total;
 		await purchase.save();
+		await session.commitTransaction();
 		await sendMail({
 			to: email,
 			subject: 'Felicidades! Compra realizada con éxito!',
@@ -37,9 +40,11 @@ const newPurchase = async (req) => {
 			}),
 		});
 		createTickets(idOperation, total, products);
-
+		session.endSession();
 		return 'PURCHASE_OK';
 	} catch (e) {
+		await session.abortTransaction();
+		session.endSession();
 		return 'PRBLEMS_WITH_PROCCESSING_PURCHASE';
 	}
 };

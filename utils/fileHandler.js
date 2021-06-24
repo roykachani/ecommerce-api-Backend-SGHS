@@ -7,7 +7,8 @@ const saveFiles = ({ path, size, mimetype }, allowImageExtension) => {
 		const [type, extension] = mimetype.split('/');
 		if (!allowImageExtension.includes(extension))
 			throw new Error('Formato no permitido');
-		if (size < 1000000) {
+		if (size < 3000000) {
+			/*3mb*/
 			const uid = uuid();
 			const fileName = `${uid}.${extension}`;
 			const fileNameOut = `./images/${fileName}`;

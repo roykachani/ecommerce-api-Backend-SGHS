@@ -10,10 +10,8 @@ const updateStock = async (products) => {
 				}
 			)
 		);
-		const [updatedStock] = await Promise.all(newResulStock);
-		//console.log(updatedStock);
-
-		return;
+		const updatedStock = await Promise.all(newResulStock);
+		if (updatedStock.length) return true;
 
 		throw new Error('Ocurrio un error al bajar stock');
 	} catch (e) {
