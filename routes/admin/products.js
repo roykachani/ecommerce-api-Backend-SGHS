@@ -9,6 +9,6 @@ const { validateId } = require('../../middlewares/actions/generic');
 //const { validateCreate } = require('./../../middlewares/actions/product');
 
 router.post('/', upload.array('photos'), create);
-router.post('/updateProduct/:id', validateId, updateProduct); //falata desarrollar.
+router.patch('/updateProduct/:id', validateId, updateProduct); //falata desarrollar.
 
 module.exports = router;

@@ -1,5 +1,7 @@
 const Product = require('./../models/Product');
 const { createProduct } = require('../services/products');
+const { updateStock } = require('../utils/updateStock');
+const { json } = require('express');
 
 const all = async (req, res) => {
 	try {
@@ -24,7 +26,20 @@ const create = async (req, res) => {
 	}
 };
 
-const updateProduct = async (req, res) => {};
+const updateProduct = async (req, res) => {
+	try {
+		//console.log(req);
+		const { id } = req.params;
+		console.log(req.body);
+		const updates = req.body;
+		const result = await Product.findByIdAndUpdate(id, updates);
+		console.log(result);
+		res.send(result);
+	} catch (e) {
+		console.log(e);
+		res.sendStatus(500);
+	}
+};
 
 const approvePurchaseProducts = async (products) => {
 	try {
