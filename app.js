@@ -2,6 +2,7 @@ const express = require('express');
 
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const cors = require('cors');
 
 const dotenv = require('dotenv');
 dotenv.config();
@@ -14,6 +15,7 @@ const products = require('./routes/products');
 const auth = require('./routes/auth');
 const purchase = require('./routes/purchase');
 const contact = require('./routes/contact');
+
 //definicion admin rutas
 const adminProducts = require('./routes/admin/products');
 
@@ -22,6 +24,7 @@ const { securedUser, securedAdmin } = require('./middlewares/actions/auth');
 
 const app = express();
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
