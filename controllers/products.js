@@ -1,7 +1,6 @@
 const Product = require('./../models/Product');
-const { createProduct } = require('../services/products');
-const { updateStock } = require('../utils/updateStock');
-const { json } = require('express');
+const { createProduct, updateFilesProduct } = require('../services/products');
+const { destroyFiles } = require('../utils/fileHandler');
 
 const all = async (req, res) => {
 	try {
@@ -26,18 +25,55 @@ const create = async (req, res) => {
 	}
 };
 
+//falta desarrollo
+
 const updateProduct = async (req, res) => {
 	try {
 		//console.log(req);
 		const { id } = req.params;
-		console.log(req.body);
-		const updates = req.body;
-		const result = await Product.findByIdAndUpdate(id, updates);
-		console.log(result);
-		res.send(result);
+		if (!!req.files) {
+			const updates = await updateFilesProduct(req.body, req.files);
+			const result = await Product.findByIdAndUpdate(id, updates);
+			return res.send(result);
+		} else {
+			const updates = req.body;
+			const result = await Product.findByIdAndUpdate(id, updates);
+			return res.send(result);
+		}
+		//console.log(req.body);
+		//console.log(result);
 	} catch (e) {
 		console.log(e);
 		res.sendStatus(500);
+	}
+};
+const deletePhotosOfProduct = async (req, res) => {
+	try {
+		const publicId = req.body.urlId;
+		//console.log(publicId);
+		await destroyFiles(publicId);
+		const destroyPhoto = await Product.updateOne(
+			{
+				photos: publicId,
+			},
+			{ $pull: { photos: { $in: publicId } } }
+		);
+		//console.log(destroyPhoto);
+		res.sendStatus(200);
+	} catch (e) {
+		console.log(e);
+		res.sendStatus(500);
+	}
+};
+
+const deleteProduct = async (req, res) => {
+	try {
+		const { id } = req.params;
+		const destroyProduct = await Product.deleteOne({ _id: id });
+		res.sendStatus(202);
+	} catch (e) {
+		console.log(e);
+		res.sendStatus(404);
 	}
 };
 
@@ -76,4 +112,13 @@ const find = async (req, res) => {
 		res.sendStatus(500);
 	}
 };
-module.exports = { all, find, create, approvePurchaseProducts, updateProduct };
+
+module.exports = {
+	all,
+	find,
+	create,
+	approvePurchaseProducts,
+	updateProduct,
+	deleteProduct,
+	deletePhotosOfProduct,
+};
