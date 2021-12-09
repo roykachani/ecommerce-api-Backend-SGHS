@@ -21,7 +21,7 @@ const saveFiles = async ({ path, size, mimetype }, allowImageExtension) => {
 			const fileNameOut = `./images/${fileName}`;
 			fs.createReadStream(path).pipe(fs.createWriteStream(fileNameOut));
 			const result = await cloudinary.v2.uploader.upload(path);
-			console.log(result);
+			//console.log(result);
 
 			fs.unlinkSync(path);
 			fs.unlinkSync(fileNameOut);
@@ -37,8 +37,22 @@ const saveFiles = async ({ path, size, mimetype }, allowImageExtension) => {
 	}
 };
 
+//falta desarrollo
+const destroyFiles = async (url) => {
+	try {
+		const array = url.split('/');
+		const [publicId, extension] = array[7].split('.');
+		//console.log(publicId);
+		const result = await cloudinary.v2.uploader.destroy(publicId);
+		console.log(result);
+	} catch (e) {
+		console.log(e);
+		res.sendStatus(500).json({ message: 'ocurrió un error al borrar imagen' });
+	}
+};
+
 const imgFiles = (file) => {
 	return saveFiles(file, allowImageExtension);
 };
 
-module.exports = { imgFiles };
+module.exports = { imgFiles, destroyFiles };
