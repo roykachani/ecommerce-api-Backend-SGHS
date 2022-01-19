@@ -10,6 +10,8 @@ dotenv.config();
 const { dbConnection } = require('./database/config');
 dbConnection();
 
+const app = express();
+
 //definicion de rutas
 const products = require('./routes/products');
 const auth = require('./routes/auth');
@@ -22,13 +24,11 @@ const adminProducts = require('./routes/admin/products');
 //middlewares
 const { securedUser, securedAdmin } = require('./middlewares/actions/auth');
 
-const app = express();
-
-app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors());
 
 //use de routes
 app.use('/api/products', products);
