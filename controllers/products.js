@@ -2,6 +2,7 @@ const Product = require('./../models/Product');
 const { createProduct, updateFilesProduct } = require('../services/products');
 const { destroyFiles } = require('../utils/fileHandler');
 
+//get all products
 const all = async (req, res) => {
 	try {
 		const data = await Product.find();
@@ -11,7 +12,7 @@ const all = async (req, res) => {
 		res.sendStatus(500);
 	}
 };
-
+// create Produt
 const create = async (req, res) => {
 	try {
 		const newProduct = await createProduct(req.body, req.files);
@@ -25,7 +26,8 @@ const create = async (req, res) => {
 	}
 };
 
-//falta desarrollo
+//Update prod. by photo and not photo
+//falta desarrollo ? chequear
 
 const updateProduct = async (req, res) => {
 	try {
@@ -47,6 +49,8 @@ const updateProduct = async (req, res) => {
 		res.sendStatus(500);
 	}
 };
+
+//delete photos only
 const deletePhotosOfProduct = async (req, res) => {
 	try {
 		const publicId = req.body.urlId;
@@ -66,6 +70,7 @@ const deletePhotosOfProduct = async (req, res) => {
 	}
 };
 
+//delete product
 const deleteProduct = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -77,6 +82,7 @@ const deleteProduct = async (req, res) => {
 	}
 };
 
+//approve purchase
 const approvePurchaseProducts = async (products) => {
 	try {
 		const checkProducts = products.map((product) =>
@@ -102,6 +108,7 @@ const approvePurchaseProducts = async (products) => {
 	}
 };
 
+//find Product by id
 const find = async (req, res) => {
 	try {
 		const { id } = req.params;
