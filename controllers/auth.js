@@ -39,7 +39,10 @@ const create = async (req, res) => {
 	try {
 		const { email, password, name, lastname } = req.body;
 		let user = await User.findOne({ email });
-		if (user) return res.status(400).json({ message: 'el mail esta en uso' });
+		if (user)
+			return res
+				.status(400)
+				.json({ message: 'email en uso, usuario ya registrado', status: 400 });
 
 		//bcrypt
 		user = new User(req.body);
@@ -58,7 +61,7 @@ const create = async (req, res) => {
 				verificationCode,
 			}),
 		});
-		res.sendStatus(201);
+		res.status(201).json({ message: 'Gracias por registrarte' });
 	} catch (e) {
 		console.error(e);
 		res.sendStatus(500);
@@ -74,7 +77,7 @@ const updateStatus = async (req, res) => {
 			return res.status(401).json({ message: 'Tu codigo ha expirado' });
 
 		await User.findOneAndUpdate({ verificationCode }, { enable: true });
-		res.json({ message: 'cuanta activada' });
+		res.status(200).json({ message: 'cuanta activada' });
 	} catch (e) {
 		console.error(e);
 		res.sendStatus(500);
