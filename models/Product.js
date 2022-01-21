@@ -1,4 +1,3 @@
-const { array } = require('@hapi/joi');
 const { Schema, model } = require('mongoose');
 
 const ProdutSchema = Schema(
@@ -14,6 +13,10 @@ const ProdutSchema = Schema(
 		condition: {
 			type: String,
 			default: 'new',
+		},
+		category: {
+			type: String,
+			enum: ['accesorios', 'camisas', 'pantalones', 'remeras', 'sacos'],
 		},
 		description: {
 			type: String,
