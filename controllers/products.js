@@ -6,10 +6,11 @@ const { destroyFiles } = require('../utils/fileHandler');
 const all = async (req, res) => {
 	try {
 		const data = await Product.find();
-		res.json(data);
+		if (!data) res.status(404).json({ status: 404, message: 'not found' });
+		res.status(200).json({ status: 200, data });
 	} catch (e) {
 		console.error(e);
-		res.sendStatus(500);
+		res.status(500).json({ status: 500, message: 'internal server error' });
 	}
 };
 // create Produt
@@ -22,7 +23,9 @@ const create = async (req, res) => {
 		res.status(201).json({ message: 'Producto creado' });
 	} catch (e) {
 		console.log(e);
-		res.sendStatus(500).json({ message: 'no se puede crear el producto' });
+		res
+			.status(500)
+			.json({ status: 500, message: 'no se puede crear el producto' });
 	}
 };
 
