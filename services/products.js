@@ -1,6 +1,7 @@
 const { imgFiles, destroyFiles } = require('../utils/fileHandler');
 
 const createProduct = async (body, files) => {
+	if (!files) return body;
 	const urlFiles = files.map((file) => imgFiles(file)).flat();
 	const resultFiles = await Promise.all(urlFiles);
 	if (resultFiles) {
