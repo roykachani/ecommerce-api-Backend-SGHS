@@ -19,6 +19,24 @@ const createProduct = joi.object().keys({
 		.valid('accesorios', 'camisas', 'pantalones', 'remeras', 'sacos')
 		.required(),
 	avaible_quantity: joi.number().positive().required(),
+	SKU: joi.number().positive().required(),
+	sizes: joi.object().keys({
+		xxs: joi.number().positive(),
+		xs: joi.number().positive(),
+		s: joi.number().positive(),
+		l: joi.number().positive(),
+		xl: joi.number().positive(),
+		xxl: joi.number().positive(),
+		xxxl: joi.number().positive(),
+		34: joi.number().positive(),
+		36: joi.number().positive(),
+		38: joi.number().positive(),
+		40: joi.number().positive(),
+		42: joi.number().positive(),
+		44: joi.number().positive(),
+		46: joi.number().positive(),
+		48: joi.number().positive(),
+	}),
 	description: joi
 		.string()
 		.min(5)
