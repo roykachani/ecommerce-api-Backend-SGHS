@@ -16,11 +16,15 @@ const auth = async (req, res) => {
 			{ password: 1, displayname: 1, role: 1 }
 		);
 		if (!user)
-			return res.status(400).json({ message: 'Usuario no registrado' });
+			return res
+				.status(400)
+				.json({ message: 'Usuario no registrado', status: 400 });
 		//bcrypt
 		const isPasswordValid = unhash(password, user.password);
 		if (!isPasswordValid)
-			return res.status(401).json({ message: 'Usuario o password incorrecto' });
+			return res
+				.status(401)
+				.json({ message: 'Usuario o password incorrecto', status: 401 });
 		const JWTObject = {
 			_id: user._id,
 			email,
@@ -31,7 +35,7 @@ const auth = async (req, res) => {
 		res.status(200).json({ message: `Bienvenid@ ${email}`, userData });
 	} catch (e) {
 		console.error(e);
-		res.sendStatus(401);
+		res.status(500).json({ message: 'Internal server error' });
 	}
 };
 
