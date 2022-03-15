@@ -10,7 +10,7 @@ const securedUser = (req, res, next) => {
 		next();
 	} catch (e) {
 		console.error(e);
-		res.status(401).json({ message: 'no autorizado' });
+		res.status(401).json({ message: 'no autorizado', status: 401 });
 	}
 };
 
@@ -24,7 +24,7 @@ const securedAdmin = (req, res, next) => {
 		next();
 	} catch (e) {
 		console.error(e);
-		res.status(401).json({ message: 'no autorizado' });
+		res.status(401).json({ message: 'no autorizado', status: 401 });
 	}
 };
 
