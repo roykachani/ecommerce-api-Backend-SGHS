@@ -36,15 +36,16 @@ const updateProduct = async (req, res) => {
 	try {
 		//console.log(req);
 		const { id } = req.params;
-		if (!!req.files) {
-			const updates = await updateFilesProduct(req.body, req.files);
-			const result = await Product.findByIdAndUpdate(id, updates);
-			return res.send(result);
-		} else {
-			const updates = req.body;
-			const result = await Product.findByIdAndUpdate(id, updates);
-			return res.send(result);
-		}
+		// if (!!req.files) {
+		// console.log(req.body);
+		const updates = await updateFilesProduct(req.body, req.files);
+		const result = await Product.findByIdAndUpdate(id, updates);
+		return res.send(result);
+		// } else {
+		// 	const updates = req.body;
+		// 	const result = await Product.findByIdAndUpdate(id, updates);
+		// 	return res.send(result);
+		// }
 		//console.log(req.body);
 		//console.log(result);
 	} catch (e) {
@@ -88,11 +89,12 @@ const deleteProduct = async (req, res) => {
 //approve purchase
 const approvePurchaseProducts = async (products) => {
 	try {
-		const checkProducts = products.map((product) =>
+		const checkProducts = products.map(({ id, price, quantity, sizes }) =>
 			Product.findOne({
-				_id: product.id,
-				price: product.price,
-				avaible_quantity: { $gte: product.quantity },
+				_id: id,
+				price: price,
+				avaible_quantity: { $gte: quantity },
+				'sizes.size': { $gte: sizes.stock },
 				enable: true,
 			})
 		);
