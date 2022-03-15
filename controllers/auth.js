@@ -32,7 +32,9 @@ const auth = async (req, res) => {
 		};
 		const JWT = createToken(JWTObject);
 		const userData = { user: user.displayname, email, JWT };
-		res.status(200).json({ message: `Bienvenid@ ${email}`, userData });
+		res
+			.status(200)
+			.json({ message: `Bienvenid@ ${email}`, userData, status: 200 });
 	} catch (e) {
 		console.error(e);
 		res.status(500).json({ message: 'Internal server error' });
@@ -65,10 +67,10 @@ const create = async (req, res) => {
 				verificationCode,
 			}),
 		});
-		res.status(201).json({ message: 'Gracias por registrarte' });
+		res.status(201).json({ message: 'Gracias por registrarte', status: 201 });
 	} catch (e) {
 		console.error(e);
-		res.sendStatus(500);
+		res.status(500).json({ message: 'Internal server error' });
 	}
 };
 
