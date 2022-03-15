@@ -2,22 +2,14 @@ const Product = require('../models/Product');
 
 const updateStock = async (products) => {
 	try {
-		let keyCompoused;
-		let sizeValue;
-		const sizePath = await products.map(({ sizes }) => {
-			let [size] = Object.keys(sizes);
-			[sizeValue] = Object.values(sizes);
-			keyCompoused = `sizes.$[].${size}`;
-		});
-		console.log(typeof keyCompoused, typeof sizeValue);
-		const newResulStock = products.map(({ id, quantity }) =>
+		const newResulStock = products.map(({ id, quantity, sizes }) =>
 			Product.findOneAndUpdate(
-				{ _id: id },
+				{ _id: id, 'sizes.size': sizes.size },
 				{
 					$inc: {
 						avaible_quantity: -quantity,
 						sold: +quantity,
-						[keyCompoused]: -sizeValue,
+						'sizes.$.stock': -sizes.stock,
 					},
 				}
 			)
