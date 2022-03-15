@@ -18,11 +18,13 @@ const updateFilesProduct = async (body, files) => {
 	//const deleteFiles = oldFiles.map((url) => destroyFiles(url));
 	const urlFiles = files.map((file) => imgFiles(file)).flat();
 	const resultFiles = await Promise.all(urlFiles);
-	if (resultFiles) {
+	if (!!resultFiles) {
 		const updtProduct = { ...body, photos: resultFiles };
 		//console.log(resultFiles);
 		return updtProduct;
 	}
+	const updtProduct = { ...body };
+	return updtProduct;
 };
 
 module.exports = { createProduct, updateFilesProduct };
