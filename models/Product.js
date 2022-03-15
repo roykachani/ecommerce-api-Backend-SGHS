@@ -2,30 +2,14 @@ const { Schema, model } = require('mongoose');
 
 const SizeSchema = Schema({
 	_id: { require: false },
-	xxs: { type: Number },
-	xs: { type: Number },
-	s: { type: Number },
-	m: { type: Number },
-	l: { type: Number },
-	xl: { type: Number },
-	xxl: { type: Number },
-	xxxl: { type: Number },
-	34: { type: Number },
-	36: { type: Number },
-	38: { type: Number },
-	40: { type: Number },
-	42: { type: Number },
-	44: { type: Number },
-	46: { type: Number },
-	48: { type: Number },
-	50: { type: Number },
-	52: { type: Number },
-	54: { type: Number },
-	56: { type: Number },
-	58: { type: Number },
-	60: { type: Number },
-	62: { type: Number },
-	64: { type: Number },
+	size: {
+		type: String,
+		require: true,
+	},
+	stock: {
+		type: Number,
+		default: 0,
+	},
 });
 
 const ProdutSchema = Schema(
