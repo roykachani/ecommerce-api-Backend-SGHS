@@ -18,6 +18,7 @@
     "html-pdf": "^3.0.1",
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
+    "mercadopago": "^1.5.12",
     "moment": "^2.29.1",
     "mongoose": "^5.11.18",
     "morgan": "~1.9.1",

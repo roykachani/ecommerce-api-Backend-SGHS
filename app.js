@@ -17,24 +17,28 @@ const products = require('./routes/products');
 const auth = require('./routes/auth');
 const purchase = require('./routes/purchase');
 const contact = require('./routes/contact');
-
+const checkoutmp = require('./routes/checkout');
 //definicion admin rutas
 const adminProducts = require('./routes/admin/products');
 
 //middlewares
 const { securedUser, securedAdmin } = require('./middlewares/actions/auth');
 
+const whiteList = ['http://www.mercadopago.com.ar', 'http://localhost:3000'];
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({ origin: whiteList }));
 
 //use de routes
 app.use('/api/products', products);
 app.use('/api/auth', auth);
 app.use('/api/purchase', securedUser, purchase);
 app.use('/contact', contact);
+app.use('/api/checkout', checkoutmp);
+console.log('first');
 
 //use admin route
 app.use('/api/admin/products', securedAdmin, adminProducts);
