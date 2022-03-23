@@ -24,7 +24,10 @@ const adminProducts = require('./routes/admin/products');
 //middlewares
 const { securedUser, securedAdmin } = require('./middlewares/actions/auth');
 
-const whiteList = ['http://www.mercadopago.com.ar', 'http://localhost:3000'];
+const whiteList = [
+	'http://www.mercadopago.com.ar',
+	'http://cvn-store.vercel.app',
+];
 
 app.use(logger('dev'));
 app.use(express.json());
