@@ -20,9 +20,9 @@ const checkoutmp = async (req, res) => {
 		purpose: 'wallet_purchase',
 		items: itemsArray,
 		back_urls: {
-			success: 'http://localhost:3000',
-			failure: 'http://localhost:3000',
-			pending: 'http://localhost:3000',
+			success: 'https://cvn-store.vercel.app',
+			failure: 'https://cvn-store.vercel.app',
+			pending: 'https://cvn-store.vercel.app',
 		},
 		// auto_return: 'approved',
 		installments: 6,
@@ -36,7 +36,7 @@ const checkoutmp = async (req, res) => {
 
 	const response = await mercadopago.preferences.create(preference);
 	console.log(response.body.init_point);
-	res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+	res.header('Access-Control-Allow-Origin', 'https://cvn-store.vercel.app');
 	res.header('Access-Control-Allow-Methods', 'post');
 	res.header('Access-Control-Allow-Headers', 'Content-Type');
 	res.header('Access-Control-Max-Age', '3600');
