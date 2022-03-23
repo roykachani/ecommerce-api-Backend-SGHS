@@ -24,7 +24,7 @@ const checkoutmp = async (req, res) => {
 			failure: 'https://cvn-store.vercel.app',
 			pending: 'https://cvn-store.vercel.app',
 		},
-		// auto_return: 'approved',
+		auto_return: 'approved',
 		installments: 6,
 		binary_mode: true,
 		statement_descriptor: 'CVN',
@@ -44,9 +44,9 @@ const checkoutmp = async (req, res) => {
 	const id = response.body.id;
 	const initPoint = response.body.init_point;
 	const urlSandbox = response.body.sandbox_init_point;
-	res.status(200).json({ initPoint, status: 200, urlSandbox, id });
+	// res.status(200).json({ initPoint, status: 200, urlSandbox, id });
 	// res.writeHead(307, { Location: 'http://localhost:3000' }).end();
-	// res.status(307).redirect(initPoint);
+	res.status(307).redirect(initPoint);
 
 	// mercadopago.preferences
 	// 	.create(preference)
@@ -61,7 +61,7 @@ const checkoutmp = async (req, res) => {
 
 const feedback = (req, res) => {
 	console.log(req.query, 'query');
-	res.status(200).redirect('http://localhost:3000').json({
+	res.status(200).json({
 		Payment: req.query.payment_id,
 		Status: req.query.status,
 		MerchantOrder: req.query.merchant_order_id,
