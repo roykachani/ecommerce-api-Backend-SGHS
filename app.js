@@ -48,6 +48,7 @@ app.use(
 			'X-Access-Token',
 			'X-Key',
 		],
+		methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
 		accessControlAllowCredentials: true,
 	})
 );

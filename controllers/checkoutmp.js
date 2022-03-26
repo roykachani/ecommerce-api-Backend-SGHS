@@ -37,7 +37,7 @@ const checkoutmp = async (req, res) => {
 	const response = await mercadopago.preferences.create(preference);
 	console.log(response.body.init_point);
 	res.header('Access-Control-Allow-Origin', 'https://cvn-store.vercel.app');
-	res.header('Access-Control-Allow-Methods', 'post');
+	res.header('Access-Control-Allow-Methods', '*');
 	res.header('Access-Control-Allow-Headers', 'Content-Type');
 	res.header('Access-Control-Max-Age', '3600');
 	res.header('Access-Control-Allow-Credentials', true);
