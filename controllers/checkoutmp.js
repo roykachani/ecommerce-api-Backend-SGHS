@@ -41,9 +41,9 @@ const checkoutmp = async (req, res) => {
 		'https://sgh-commerce.herokuapp.com'
 	);
 	res.header('Access-Control-Allow-Methods', '*');
-	res.header('Access-Control-Allow-Headers', 'Content-Type');
+	// res.header('Access-Control-Allow-Headers', 'Content-Type');
 	// res.header('Access-Control-Max-Age', '3600');
-	res.header('Access-Control-Allow-Credentials', true);
+	// res.header('Access-Control-Allow-Credentials', true);
 	const id = response.body.id;
 	const initPoint = response.body.init_point;
 	const urlSandbox = response.body.sandbox_init_point;
