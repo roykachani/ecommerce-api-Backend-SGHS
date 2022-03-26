@@ -36,11 +36,8 @@ const checkoutmp = async (req, res) => {
 
 	const response = await mercadopago.preferences.create(preference);
 	console.log(response.body.init_point);
-	res.header(
-		'Access-Control-Allow-Origin',
-		'https://sgh-commerce.herokuapp.com'
-	);
-	res.header('Access-Control-Allow-Methods', '*');
+	// res.header('Access-Control-Allow-Origin', 'https://cvn-store.vercel.app');
+	// res.header('Access-Control-Allow-Methods', '*');
 	// res.header('Access-Control-Allow-Headers', 'Content-Type');
 	// res.header('Access-Control-Max-Age', '3600');
 	// res.header('Access-Control-Allow-Credentials', true);
@@ -49,7 +46,7 @@ const checkoutmp = async (req, res) => {
 	const urlSandbox = response.body.sandbox_init_point;
 	// res.status(200).json({ initPoint, status: 200, urlSandbox, id });
 	// res.writeHead(307, { Location: 'http://localhost:3000' }).end();
-	res.status(307).redirect(initPoint);
+	res.redirect(initPoint);
 
 	// mercadopago.preferences
 	// 	.create(preference)
