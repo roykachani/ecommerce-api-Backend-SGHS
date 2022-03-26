@@ -36,20 +36,7 @@ app.use(cookieParser());
 app.use(
 	cors({
 		origin: whiteList,
-		allowedHeaders: [
-			'Content-Type',
-			'Authorization',
-			'Accept',
-			'access-control-allow-headers',
-			'origin',
-			'X-Requested-With',
-			'Content-Type',
-			'Accept',
-			'X-Access-Token',
-			'X-Key',
-		],
 		methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
-		accessControlAllowCredentials: true,
 	})
 );
 
