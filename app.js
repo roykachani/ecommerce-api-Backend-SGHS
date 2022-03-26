@@ -37,6 +37,13 @@ app.use(
 	cors({
 		origin: whiteList,
 		methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
+		contentType: [
+			'application/json',
+			'text/plain',
+			'application/x-www-form-urlencoded',
+			'multipart/form-data',
+			'charset=utf-8',
+		],
 	})
 );
 
