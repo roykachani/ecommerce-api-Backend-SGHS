@@ -26,7 +26,7 @@ const { securedUser, securedAdmin } = require('./middlewares/actions/auth');
 
 const whiteList = [
 	'https://www.mercadopago.com.ar',
-	'https://cvn-store.vercel.app:80',
+	'https://cvn-store.vercel.app',
 ];
 
 app.use(logger('dev'));
