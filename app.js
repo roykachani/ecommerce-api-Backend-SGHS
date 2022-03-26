@@ -33,7 +33,24 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors({ origin: whiteList }));
+app.use(
+	cors({
+		origin: whiteList,
+		allowedHeaders: [
+			'Content-Type',
+			'Authorization',
+			'Accept',
+			'access-control-allow-headers',
+			'origin',
+			'X-Requested-With',
+			'Content-Type',
+			'Accept',
+			'X-Access-Token',
+			'X-Key',
+		],
+		accessControlAllowCredentials: true,
+	})
+);
 
 //use de routes
 app.use('/api/products', products);
