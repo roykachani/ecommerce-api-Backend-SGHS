@@ -46,7 +46,7 @@ const checkoutmp = async (req, res) => {
 	const urlSandbox = response.body.sandbox_init_point;
 	// res.status(200).json({ initPoint, status: 200, urlSandbox, id });
 	// res.writeHead(307, { Location: 'http://localhost:3000' }).end();
-	res.redirect(initPoint);
+	res.status(201).redirect(initPoint);
 
 	// mercadopago.preferences
 	// 	.create(preference)
