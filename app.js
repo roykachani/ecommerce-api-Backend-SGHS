@@ -35,7 +35,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(
 	cors({
-		origin: '*',
+		origin: whiteList,
 		methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
 		contentType: [
 			'application/json',
