@@ -64,7 +64,7 @@ const checkoutmp = async (req, res) => {
 const notifications = (req, res) => {
 	console.log(req.query, 'query');
 	console.log(req.body, 'body');
-	res.status(200);
+	res.status(200).end();
 };
 
 module.exports = { checkoutmp, notifications };
