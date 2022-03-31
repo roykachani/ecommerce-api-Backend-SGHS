@@ -44,7 +44,7 @@ const checkoutmp = async (req, res) => {
 	const id = response.body.id;
 	const initPoint = response.body.init_point;
 	// const urlSandbox = response.body.sandbox_init_point;
-	res.status(200).json({ initPoint, status: 200, urlSandbox, id });
+	res.status(200).json({ initPoint, status: 200, id });
 	// res.writeHead(307, { Location: 'http://localhost:3000' }).end();
 	// res.status(201).redirect(initPoint);
 
