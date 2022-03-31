@@ -32,6 +32,8 @@ const checkoutmp = async (req, res) => {
 			cost: 400,
 			mode: 'not_specified',
 		},
+		notification_url:
+			'https://sgh-commerce.herokuapp.com/api/checkout/notifications',
 	};
 
 	const response = await mercadopago.preferences.create(preference);
@@ -59,13 +61,10 @@ const checkoutmp = async (req, res) => {
 	// 	});
 };
 
-const feedback = (req, res) => {
+const notifications = (req, res) => {
 	console.log(req.query, 'query');
-	res.status(200).json({
-		Payment: req.query.payment_id,
-		Status: req.query.status,
-		MerchantOrder: req.query.merchant_order_id,
-	});
+	console.log(req.body, 'body');
+	res.status(200);
 };
 
-module.exports = { checkoutmp, feedback };
+module.exports = { checkoutmp, notifications };

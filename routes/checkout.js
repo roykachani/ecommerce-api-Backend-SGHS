@@ -1,9 +1,9 @@
 const { Router } = require('express');
 const router = Router();
 
-const { checkoutmp, feedback } = require('./../controllers/checkoutmp');
+const { checkoutmp, notifications } = require('./../controllers/checkoutmp');
 
 router.post('/', checkoutmp);
-router.post('/feedback', feedback);
+router.post('/notifications', notifications);
 
 module.exports = router;
