@@ -37,6 +37,8 @@ const checkoutmp = async (req, res) => {
 	};
 
 	const response = await mercadopago.preferences.create(preference);
+	console.log('response body preferense MP');
+	console.log(response.body);
 	console.log(response.body.init_point);
 	// res.header('Access-Control-Allow-Origin', 'https://cvn-store.vercel.app');
 	// res.header('Access-Control-Allow-Methods', '*');
@@ -62,7 +64,10 @@ const checkoutmp = async (req, res) => {
 };
 
 const notifications = (req, res) => {
-	console.log(req.query, 'query');
+	console.log('response QUERY NOTIFICATIONS MP');
+
+	console.log(req.query);
+	console.log('response BODY NOTIFICATIONS MP');
 	console.log(req.body, 'body');
 	res.status(200).end();
 };
